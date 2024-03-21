@@ -19,6 +19,9 @@ const fs = require("fs").promises;
 
 async function getProductDetails(link, text = "",len=0,access_token,driver) {
 
+  let postflag = false
+  try{
+
   const date = new Date();
   if(len==0){
     len=await firebaseget();
@@ -31,25 +34,28 @@ async function getProductDetails(link, text = "",len=0,access_token,driver) {
 
   // Format the date as YYYY-MM-DD
   const todayDate = `${year}-${month}-${day}`;
-  console.log("Formatted Date is ",todayDate)
-
   driver.get(link);
   link = await driver.getCurrentUrl();
   if (link.includes("amazon")) {
-    product = await scrapeAmazonProduct(link, driver);
-    product.storeType = "amazon";
+    product = await scrapeAmazonProduct(link, text, driver);
+    product.storeType = "Amazon";
+    product.links.avinashbmvINR = "";
   } else if (link.includes("flipkart")) {
-    product = await scrapeFlipkartProduct(link, driver);
-    product.storeType = "flipkart";
+    product = await scrapeFlipkartProduct(link, text, driver);
+    product.storeType = "Flipkart";
   }
   product.date = String(todayDate);
   product.datetime = Date.now();
   product.id = len;
+  product.idlen = len;
+  product.idlength = len;
+  product.isDeal = false
+  product.isOffer = false
+  product.productType = "Affiliate";
 
   let env = constants.env
 
   console.log("Product is ", product);
-  // console.log("Type is ", type);
 
   if (product?.price > 0 && product?.links?.avinashbmv != "") {
     postflag = await firebasepost(product, access_token, env);
@@ -66,7 +72,6 @@ async function getProductDetails(link, text = "",len=0,access_token,driver) {
         len += 1;
       } else {
         console.log("Need to skip channel deals");
-        i++;
       }
     }
     if(postflag){
@@ -76,6 +81,14 @@ async function getProductDetails(link, text = "",len=0,access_token,driver) {
         console.log("Post Flag is false ",product?.links?.avinashbmv)
     }
   }
+  return postflag
+}
+    catch(e){
+      console.log("error in scheduler: ",e)
+      return postflag
+  }
+  // finally {
+  // }
 }
 module.exports = {
   getProductDetails,

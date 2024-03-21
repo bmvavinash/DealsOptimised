@@ -7,7 +7,7 @@ async function amazonLinkGenerator( driver) {
 
         await driver.findElement(By.id("amzn-ss-text-link")).click();
     }
-    catch(e){}
+    catch(e){console.log(e);}
   // let popupIsVisible = await driver.wait(until.elementIsVisible("a-popover-content-2"));
   // console.log("popupIsVisible is "+popupIsVisible);
   // if(!popupIsVisible){
@@ -18,7 +18,7 @@ async function amazonLinkGenerator( driver) {
 
       await driver.findElement(By.id("amzn-ss-text-link")).click();
   }
-  catch(e){}
+  catch(e){console.log(e);}
   // await driver.wait(until.elementLocated(By.id("a-popover-content-2")),5000);//,Key.RETURN
   await driver.sleep(100);
   try {
@@ -52,7 +52,7 @@ async function amazonLinkGenerator( driver) {
           .keyUp(Key.CONTROL)
           // .keyDown(Key.TAB)
           .perform();
-        // console.log('Tab Removed');
+        
       }
       await driver.sleep(1200);
       // await driver.sleep(1000);
@@ -137,10 +137,10 @@ async function amazonLinkGenerator( driver) {
   // }
   try {
     await driver.findElement(By.id("amzn-ss-text-shortlink-textarea")).click();
-  } catch (e) {}
+  } catch (e) {console.log(e);}
   try {
     await driver.findElement(By.id("amzn-ss-text-shortlink-textarea")).click();
-  } catch (e) {}
+  } catch (e) {console.log(e);}
   // console.log('Instead of Copy ' +datasnew)
 
   // linkdata = await driver.findElement(By.id("amzn-ss-text-shortlink-textarea")).getAttribute("src");
@@ -161,7 +161,7 @@ async function amazonLinkGenerator( driver) {
   // await driver.findElement(By.id("amzn-ss-tracking-id-dropdown-text")).click();
   try {
     await driver.findElement(By.id("amzn-ss-text-shortlink-textarea")).click();
-  } catch (e) {}
+  } catch (e) {console.log(e);}
   return urlvalue1;
 }
 

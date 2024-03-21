@@ -8,7 +8,6 @@ async function firebasepost(app, access_token, env="prod", jsonFileName="deals",
   const constants = require('../config/constants.js');
   const config = require('../config/config.js');
 
-  console.log(constants.env)
   env=constants.env
 
   const dbname= constants.postingTypesConfig[constants.type].DB
@@ -40,7 +39,6 @@ async function firebasepost(app, access_token, env="prod", jsonFileName="deals",
 const apiUrl = `https://${DB_Name}-default-rtdb.firebaseio.com/${jsonFileName}.json?access_token=${access_token}`
 
   // const apiUrl = `${url}/${jsonFileName}.json?access_token=${access_token}`;
-  console.log("api url is ",apiUrl)
   await fetch(apiUrl, {
     method: 'POST',
     headers: {

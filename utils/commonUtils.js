@@ -15,6 +15,12 @@ function validateDiscount(value) {
         value: discount
     };
 }
+function validateText(value) {
+    // Replace "&amp;" with "&" and remove all white spaces
+    let cleanedValue = value.replace(/&amp;|\s/g, "").replace(/-/g, "").trim();
+    return cleanedValue;
+}
+
 
 function formatProductInfo(product) {
     let messagePrefix = "";
@@ -29,18 +35,25 @@ function formatProductInfo(product) {
     } if (product.discount > 50) {
       messagePrefix += `${product?.discount}% off on `;
     }
-  
+    
     // Construct the message
-    let message = `${messagePrefix}${product.productText} ➡️ Deal price: ₹${product.price}`;
-  
+    let message = `${messagePrefix}${product.productText} \n\n➡️ Deal price: ₹${product.price}`;
+    
     // Append additional text if the discount is 50% or less
     if (product.discount <= 50) {
-      message += ` discount is ${product.discount}`;
+      message += `\ndiscount is ${product.discount}`;
     }
-  
+    
     // Append link and hashtags
-    message += ` Buy Here : https://dealshubglobal.com/p/${product?.id}\n\n ⚡️⚡️**Price Dropped** \n\n#${product.storeType}  #${product.category}`;
-
+    message += `\n\nBuy Here : https://dealshubglobal.com/p/${product?.id}\n\n` ;
+    
+    if (product.discount > 85) {
+      message +="⚡️⚡️**Price Dropped** \n"
+    }
+    message+=`#${product.storeType}`
+    if (product?.category?.mainCategory!=""){
+      `#${product?.category?.mainCategory}`
+    } 
     // 💥 Bank Offer : ₹1,000 Instant Discount With ICICI, ONECARD Credit Card Txn
     // 💥💥
     // 🛒
@@ -81,5 +94,6 @@ function validateDiscount(value) {
 module.exports = {
     validatePrice,
     formatProductInfo,
-    validateDiscount
+    validateDiscount,
+    validateText
 };

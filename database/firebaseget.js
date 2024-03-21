@@ -7,9 +7,8 @@ async function firebaseget(jsonFileName = "dailydeals") {
     const constants = require("../config/constants");
     const dbname = constants.postingTypesConfig[constants.type].DB;
     let DB_Name = config.DATABASE_CONFIG[`${dbname}_NAME`];
-    console.log("Db Name is ", DB_Name);
-
-    console.log("entered into  Firebase GET Seperate");
+    
+    jsonFileName = config.DATABASE_CONFIG.JSON_FILE_NAME
     const apiUrl = `https://${DB_Name}-default-rtdb.firebaseio.com/${jsonFileName}.json`;
 
     var requestOptions = {
@@ -28,7 +27,7 @@ async function firebaseget(jsonFileName = "dailydeals") {
 //     }
 //     console.log("totalLength ", len);
 //     return len;
-//   } catch (e) {}
+//   } catch (e) {console.log(e);}
 // }
 
 

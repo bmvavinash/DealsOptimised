@@ -3,15 +3,23 @@ const { By, Key, Builder, Button, until } = require("selenium-webdriver");
 
 const { validatePrice, validateDiscount } = require("../utils/commonUtils");
 
-async function scrapeFlipkartProduct(url, driver) {
+async function scrapeFlipkartProduct(url, text, driver) {
     // driver.get(url);
     let product = {};
     // console.log(flipkartConfig.price)
     product.price = await extractAttribute(driver, flipkartConfig.price);
     product.discount = await extractAttribute(driver, flipkartConfig.discount);
     product.photo = await extractAttribute(driver, flipkartConfig.photo);
+    try {product.urltext = text } catch(e){ console.log("url Text error")}
     // product.asin = await extractAttribute(driver, flipkartConfig.asin);
     product.productText = await extractAttribute(driver, flipkartConfig.productText);
+    product.category = {}
+    product.category.mainCategory = await extractAttribute(driver, flipkartConfig.category);
+    product.category.c1 = await extractAttribute(driver, flipkartConfig.c1);
+    product.category.c2 = await extractAttribute(driver, flipkartConfig.c2);
+    product.category.c3 = await extractAttribute(driver, flipkartConfig.c3);
+    product.category.c4 = await extractAttribute(driver, flipkartConfig.c4);
+    product.category.c5 = await extractAttribute(driver, flipkartConfig.c5);
     product.category = await extractAttribute(driver, flipkartConfig.category);
     // product.brand = await extractAttribute(driver, flipkartConfig.brand);
     // Log product or further processing

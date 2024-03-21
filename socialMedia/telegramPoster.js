@@ -1,5 +1,5 @@
 async function telegram(photo="",chat_id="@dealshubglobal",text="details") {
-
+try{
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -66,6 +66,8 @@ else{
 catch(e){
 console.log(e);
 }
+}
+catch(e){console.log(e);}
 }
 
 module.exports = {

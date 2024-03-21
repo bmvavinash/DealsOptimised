@@ -5,8 +5,6 @@ function getAccessToken(env="prod",extract="Telegram",extractData="Telegram") {
   const constants = require('../config/constants.js');
   const config = require('../config/config.js');
 
-  console.log(constants.env)
-
   const dbname= constants.postingTypesConfig[constants.type].DB
   let DB_Name=config.DATABASE_CONFIG[`${dbname}_NAME`];
   const filePath = config.DATABASE_CONFIG[`${dbname}_TOKEN_FILE`];
